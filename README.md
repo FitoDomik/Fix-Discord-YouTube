@@ -90,19 +90,6 @@ c:\Users\Slava\Downloads\1\
   4. Фильтрация применяется к трафику, который совпадает с доменами (`hostlist`) или IP‑сетями (`ipset`), а также к L7 (Discord/STUN) и портовым диапазонам.
   5. DPI‑обход реализован через техники «desync»: вставка фальшивых пакетов QUIC/TLS, манипуляции TTL/последовательностями/разбиениями.
 
-```mermaid
-flowchart LR
-    User[Пользователь] -->|запуск| General[general*.bat]
-    User -->|установка/настройка| Service[service.bat]
-    Service -->|парсит args| ZapretService[Windows Service "zapret"]
-    General -->|start /min| Winws[winws.exe]
-    ZapretService --> Winws
-    Winws -->|использует| WinDivert[WinDivert.dll/.sys]
-    Winws -->|чтение| Lists[lists: hostlist/ipset]
-    Winws -->|шаблоны| Bins[bin: *.bin]
-    Winws -->|перехват/инъекция| Network[(Сеть)]
-```
-
 ### 4. Библиотеки/фреймворки
 
 - **WinDivert**: драйвер/библиотека для фильтрации и инъекции пакетов в Windows.
@@ -171,4 +158,5 @@ discord.gifts
 ### 9. Предупреждения
 
 - Возможно вмешательство сетевых фильтров/антивирусов/VPN. Используйте диагностику в `service.bat`.
+
 - Требуются права администратора для установки сервиса и работы WinDivert.
